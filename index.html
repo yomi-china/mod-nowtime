@@ -3,346 +3,544 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Now Time - Minecraft 准点报时模组</title>
-    <!-- Material UI 样式 -->
+    <title>Yomi的个人网站-Now Time模组</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary: #1976d2;
-            --dark: #0d47a1;
-            --light: #bbdefb;
-            --text: #212121;
+            --primary: #5f697e;
+            --primary-dark: #555E70;
+            --primary-light: #8A8A8A;
+            --accent: #448aff;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --divider: #e0e0e0;
             --background: #f5f5f5;
-            --card: #ffffff;
+            --surface: #ffffff;
+            --error: #f44336;
+            --success: #4caf50;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
         }
-
+        
         body {
             background-color: var(--background);
-            color: var(--text);
+            color: var(--text-primary);
             line-height: 1.6;
         }
-
-        /* 导航栏 */
-        .navbar {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .language-switch {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        /* 主内容区 */
+        
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
-
-        /* 卡片样式 */
-        .card {
-            background-color: var(--card);
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--light);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* 功能展示 */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .feature {
-            display: flex;
-            gap: 15px;
-        }
-
-        .feature-icon {
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
-
-        /* 配置表格 */
-        .config-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .config-table th, .config-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-
-        .config-table th {
-            background-color: var(--light);
-        }
-
-        /* 按钮 */
-        .btn {
+        
+        /* Material Design 顶部应用栏 */
+        .app-bar {
             background-color: var(--primary);
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .app-bar-content {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .app-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.5rem;
             font-weight: 500;
+        }
+        
+        .app-title i {
+            font-size: 2rem;
+        }
+        
+        .spacer {
+            flex-grow: 1;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.87);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* 英雄区域 */
+        .main {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .main-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        /* Material Design 按钮 */
+        .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
             text-decoration: none;
-            transition: background 0.3s;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.24);
         }
-
-        .btn:hover {
-            background-color: var(--dark);
+        
+        .btn i {
+            margin-right: 8px;
         }
-
-        .download-section {
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #e3f2fd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+        
+        /* Material Design 卡片 */
+        .section {
+            padding: 64px 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 48px;
             text-align: center;
-            padding: 3rem 0;
+            color: var(--primary);
         }
-
-        /* 响应式调整 */
+        
+        .section-subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 48px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .card {
+            background-color: var(--surface);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .card-icon {
+            background-color: rgba(255,255,255,0.2);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        .card-content {
+            padding: 24px;
+        }
+        
+        .card-text {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        
+        /* 配置选项 */
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .config-item {
+            background-color: var(--surface);
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .config-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        /* 截图区域 */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .screenshot {
+            height: 200px;
+            background-color: #ebf2f7;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .screenshot:before {
+            content: '--';
+            position: absolute;
+        }
+        
+        /* 下载区域 */
+        .download-section {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 64px 0;
+            text-align: center;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-weight: 500;
+            margin: 16px 0;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background-color: #f0f0f0;
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .features-grid {
-                grid-template-columns: 1fr;
+            .app-title {
+                font-size: 1.25rem;
             }
+            
             .nav-links {
                 display: none;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .main-subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 48px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-clock"></i>
-            <span class="en">Now Time Mod</span>
-            <span class="zh">准点报时模组</span>
+    <header class="app-bar">
+        <div class="app-bar-content">
+            <div class="app-title">
+                <span>Yomi的个人网站</span>
+            </div>
+            <div class="spacer"></div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">特性</a>
+                <a href="#configuration" class="nav-link">配置</a>
+                <a href="#screenshots" class="nav-link">截图</a>
+            </div>
         </div>
-        <button class="language-switch" id="languageToggle">
-            <span class="en">中文</span>
-            <span class="zh">English</span>
-        </button>
-    </nav>
-
-    <!-- 主内容区 -->
-    <div class="container">
-        <!-- 模组介绍 -->
-        <section class="card">
-            <h1 class="section-title">
-                <i class="fas fa-info-circle"></i>
-                <span class="en">About This Mod</span>
-                <span class="zh">模组介绍</span>
-            </h1>
-            <p class="en">
-                <b>Now Time</b> is a server-friendly Minecraft mod that sends automated time announcements to in-game chat. 
-                Highly customizable via config files, it supports multilingual announcements and flexible scheduling.
-            </p>
-            <p class="zh">
-                <b>Now Time</b> 是一款服务端友好的 Minecraft 模组，能在游戏聊天区自动发送准点报时。
-                通过配置文件可实现高度自定义，支持多语言报时和灵活的时间调度。
-            </p>
-        </section>
-
-        <!-- 功能亮点 -->
-        <section class="card">
-            <h2 class="section-title">
-                <i class="fas fa-star"></i>
-                <span class="en">Key Features</span>
-                <span class="zh">核心功能</span>
-            </h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <div class="feature-icon">
-                        <i class="fas fa-bell"></i>
+    </header>
+    
+    <section class="main">
+        <div class="main-content">
+            <h1 class="main-title">Now Time | 准点报时 模组</h1>
+            <p class="main-subtitle">本模组提供了准点报时功能，高度可配置，仅服务端。</p>
+            <div class="btn-group">
+                <a href="https://modrinth.com/mod/now-time/versions" class="btn btn-primary">
+                    <i class="material-icons">download</i>立即下载
+                </a>
+                <a href="https://modrinth.com/mod/now-time" target="_blank" class="btn btn-outline">
+                    <i class="material-icons">open_in_new</i>Modrinth 页面
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <p class="section-subtitle">小而美</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="material-icons">notifications</i>
+                        </div>
+                        <h3 class="card-title">准点报时</h3>
                     </div>
-                    <div>
-                        <h3 class="en">Accurate Alerts</h3>
-                        <h3 class="zh">精准报时</h3>
-                        <p class="en">Automatic in-game announcements at full hours (e.g. "It's now 12:00")</p>
-                        <p class="zh">整点自动发送游戏内公告（例："现在时间是12:00"）</p>
+                    <div class="card-content">
+                        <p class="card-text">在整点（也可自定）时自动在服务器聊天区广播当前时间，并附带提醒。帮助玩家掌握游戏内时间流逝，合理安排活动。</p>
                     </div>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">
-                        <i class="fas fa-sliders-h"></i>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="material-icons">tune</i>
+                        </div>
+                        <h3 class="card-title">高可配置</h3>
                     </div>
-                    <div>
-                        <h3 class="en">Full Customization</h3>
-                        <h3 class="zh">深度定制</h3>
-                        <p class="en">Customize message format, trigger times, and language via YAML config</p>
-                        <p class="zh">通过YAML配置自定义消息格式、触发时间和语言</p>
+                    <div class="card-content">
+                        <p class="card-text">配置文件可以高度自定义，满足个性化需求。</p>
                     </div>
                 </div>
-                <div class="feature">
-                    <div class="feature-icon">
-                        <i class="fas fa-server"></i>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="material-icons">dns</i>
+                        </div>
+                        <h3 class="card-title">仅服务端</h3>
                     </div>
-                    <div>
-                        <h3 class="en">Server-Optimized</h3>
-                        <h3 class="zh">服务端支持</h3>
-                        <p class="en">Runs on dedicated servers without client-side installation</p>
-                        <p class="zh">可在专用服务器运行，无需客户端安装</p>
+                    <div class="card-content">
+                        <p class="card-text">仅服务端安装，无需客户端安装，资源占用低。</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 配置说明 -->
-        <section class="card">
-            <h2 class="section-title">
-                <i class="fas fa-cog"></i>
-                <span class="en">Configuration</span>
-                <span class="zh">配置选项</span>
-            </h2>
-            <table class="config-table">
-                <thead>
-                    <tr>
-                        <th class="en">Parameter</th>
-                        <th class="zh">参数</th>
-                        <th class="en">Description</th>
-                        <th class="zh">说明</th>
-                        <th class="en">Default</th>
-                        <th class="zh">默认值</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>enable_mod</td>
-                        <td>启用模组</td>
-                        <td class="en">Toggle mod on/off</td>
-                        <td class="zh">模组开关</td>
-                        <td>true</td>
-                        <td>true</td>
-                    </tr>
-                    <tr>
-                        <td>announce_hours</td>
-                        <td>报时时段</td>
-                        <td class="en">Which hours to announce (0-23)</td>
-                        <td class="zh">需要报时的时间段(0-23)</td>
-                        <td>[9,12,15,18,21]</td>
-                        <td>[9,12,15,18,21]</td>
-                    </tr>
-                    <tr>
-                        <td>message_format</td>
-                        <td>消息格式</td>
-                        <td class="en">Custom message with {time} placeholder</td>
-                        <td class="zh">自定义消息格式，{time}为占位符</td>
-                        <td class="en">"It's now {time}"</td>
-                        <td class="zh">"现在时间 {time}"</td>
-                    </tr>
-                    <tr>
-                        <td>use_24h_format</td>
-                        <td>24小时制</td>
-                        <td class="en">Use 24-hour time format</td>
-                        <td class="zh">是否使用24小时制</td>
-                        <td>false</td>
-                        <td>false</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <section class="section" id="configuration">
+        <div class="container">
+            <h2 class="section-title">配置选项</h2>
+            <p class="section-subtitle">丰富的配置选项</p>
+            
+            <div class="config-grid">
 
-        <!-- 预览图 -->
-        <section class="card">
-            <h2 class="section-title">
-                <i class="fas fa-image"></i>
-                <span class="en">In-Game Preview</span>
-                <span class="zh">游戏内效果</span>
-            </h2>
-            <div style="text-align: center; margin-top: 1rem;">
-                <img src="https://via.placeholder.com/800x400/bbdefb/1976d2?text=Game+Preview" alt="Preview" style="max-width: 100%; border-radius: 4px;">
-                <p style="margin-top: 10px; font-style: italic; color: #666;">
-                    <span class="en">Screenshot showing time announcement in chat</span>
-                    <span class="zh">聊天框显示报时信息的截图示例</span>
-                </p>
+                <div class="config-item">
+                    <h4 class="config-title">消息模板（messageFormat）</h4>
+                    <p><font color="gray">默认值：Ding!Current time is: {time}</font></p>
+                    <p>自定义报时消息内容，支持将时间和提示词置于一句话中</p>
+                </div>
+
+                <div class="config-item">
+                    <h4 class="config-title">现实/游戏时间（useLocalTime）</h4>
+                    <p><font color="gray">默认值：true</font></p>
+                    <p>默认播报本地现实时间，也可播报游戏时间并转换格式</p>
+                </div>
+
+                <div class="config-item">
+                    <h4 class="config-title">任意间隔（cronExpression）</h4>
+                    <p><font color="gray">默认值：0 */30 * * * ?</font></p>
+                    <p>使用cron表达式自定义间隔，从几秒到几天自由设置</p>
+                </div>
+
+                <div class="config-item">
+                    <h4 class="config-title">时间时制[即将完成]</h4>
+                    <p>支持12小时制/24小时制切换</p>
+                </div>
+                
+                <div class="config-item">
+                    <h4 class="config-title">报时范围[即将完成]</h4>
+                    <p>设置哪些整点需要报时，仅白天/仅夜晚/全天</p>
+                </div>
+                
+                <div class="config-item">
+                    <h4 class="config-title">成员限定[即将完成]</h4>
+                    <p>设置接收模组消息所需的权op权限等级</p>
+                </div>
+                
+                <div class="config-item">
+                    <h4 class="config-title">特殊提醒[即将完成]</h4>
+                    <p>配置特定时间点的特殊提醒消息</p>
+                </div>
+                
+                <div class="config-item">
+                    <h4 class="config-title">声音设置[即将完成]</h4>
+                    <p>启用/禁用声音提示，选择声音类型</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- 下载区域 -->
-        <section class="download-section">
-            <a href="https://modrinth.com/mod/now-time" class="btn">
-                <i class="fas fa-download"></i>
-                <span class="en">Download on Modrinth</span>
-                <span class="zh">Modrinth 平台下载</span>
-            </a>
-            <p style="margin-top: 15px;">
-                <span class="en">Compatible with Forge/Fabric | Minecraft 1.16.5+</span>
-                <span class="zh">支持 Forge/Fabric | Minecraft 1.16.5+</span>
-            </p>
-        </section>
-    </div>
+    <section class="section" id="screenshots">
+        <div class="container">
+            <h2 class="section-title">模组截图</h2>
+            <p class="section-subtitle">随便写写没人看到吧</p>
+            
+            <div class="screenshot-grid">
+            <div class="screenshot-container">
+                <img src="https://cdn.modrinth.com/data/O6HHBT6w/images/42c71ca719443510df5bfb9456caba68c5dc0d4c.png" 
+                     alt="配置文件" 
+                     class="screenshot">
+                <div class="caption">配置文件</div>
+            </div>
+            
+            <div class="screenshot-container">
+                <img src="https://img.dexbug.com/i/2025/06/30/yrk6tu.png" 
+                     alt="效果展示" 
+                     class="screenshot">
+                <div class="caption">效果展示</div>
+            </div>
+            
+            <div class="screenshot-container">
+                <img src="https://gp1.saobby.com/i/CFZ4rJvrL79O1uzt.png" 
+                     alt="文件位置" 
+                     class="screenshot">
+                <div class="caption">文件位置</div>
+            </div>
+        </div>
+        </div>
+    </section>
 
+    <footer class="footer">
+        <div class="footer-content">
+        </div>
+        <div class="container">
+            <p>Yomi的个人网站 2025</p>
+        </div>
+    </footer>
+    
     <script>
-        // 双语切换功能
-        document.getElementById('languageToggle').addEventListener('click', function() {
-            const zhElements = document.querySelectorAll('.zh');
-            const enElements = document.querySelectorAll('.en');
-            
-            zhElements.forEach(el => {
-                el.style.display = el.style.display === 'none' ? 'inline' : 'none';
-            });
-            
-            enElements.forEach(el => {
-                el.style.display = el.style.display === 'none' ? 'inline' : 'block';
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
-
-        // 初始隐藏双语中的一种
-        document.querySelectorAll('.zh').forEach(el => {
-            el.style.display = 'none';
+        
+        // 卡片悬停效果增强
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px)';
+                card.style.boxShadow = '0 12px 20px rgba(0,0,0,0.2)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+            });
         });
     </script>
 </body>
