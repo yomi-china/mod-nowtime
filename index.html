@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now Time - Minecraft 准点报时模组</title>
+    <!-- Material UI 样式 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1976d2;
+            --dark: #0d47a1;
+            --light: #bbdefb;
+            --text: #212121;
+            --background: #f5f5f5;
+            --card: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .language-switch {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* 主内容区 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background-color: var(--card);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 功能展示 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        /* 配置表格 */
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .config-table th, .config-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .config-table th {
+            background-color: var(--light);
+        }
+
+        /* 按钮 */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--dark);
+        }
+
+        .download-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-clock"></i>
+            <span class="en">Now Time Mod</span>
+            <span class="zh">准点报时模组</span>
+        </div>
+        <button class="language-switch" id="languageToggle">
+            <span class="en">中文</span>
+            <span class="zh">English</span>
+        </button>
+    </nav>
+
+    <!-- 主内容区 -->
+    <div class="container">
+        <!-- 模组介绍 -->
+        <section class="card">
+            <h1 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                <span class="en">About This Mod</span>
+                <span class="zh">模组介绍</span>
+            </h1>
+            <p class="en">
+                <b>Now Time</b> is a server-friendly Minecraft mod that sends automated time announcements to in-game chat. 
+                Highly customizable via config files, it supports multilingual announcements and flexible scheduling.
+            </p>
+            <p class="zh">
+                <b>Now Time</b> 是一款服务端友好的 Minecraft 模组，能在游戏聊天区自动发送准点报时。
+                通过配置文件可实现高度自定义，支持多语言报时和灵活的时间调度。
+            </p>
+        </section>
+
+        <!-- 功能亮点 -->
+        <section class="card">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                <span class="en">Key Features</span>
+                <span class="zh">核心功能</span>
+            </h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div>
+                        <h3 class="en">Accurate Alerts</h3>
+                        <h3 class="zh">精准报时</h3>
+                        <p class="en">Automatic in-game announcements at full hours (e.g. "It's now 12:00")</p>
+                        <p class="zh">整点自动发送游戏内公告（例："现在时间是12:00"）</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div>
+                        <h3 class="en">Full Customization</h3>
+                        <h3 class="zh">深度定制</h3>
+                        <p class="en">Customize message format, trigger times, and language via YAML config</p>
+                        <p class="zh">通过YAML配置自定义消息格式、触发时间和语言</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div>
+                        <h3 class="en">Server-Optimized</h3>
+                        <h3 class="zh">服务端支持</h3>
+                        <p class="en">Runs on dedicated servers without client-side installation</p>
+                        <p class="zh">可在专用服务器运行，无需客户端安装</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 配置说明 -->
+        <section class="card">
+            <h2 class="section-title">
+                <i class="fas fa-cog"></i>
+                <span class="en">Configuration</span>
+                <span class="zh">配置选项</span>
+            </h2>
+            <table class="config-table">
+                <thead>
+                    <tr>
+                        <th class="en">Parameter</th>
+                        <th class="zh">参数</th>
+                        <th class="en">Description</th>
+                        <th class="zh">说明</th>
+                        <th class="en">Default</th>
+                        <th class="zh">默认值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>enable_mod</td>
+                        <td>启用模组</td>
+                        <td class="en">Toggle mod on/off</td>
+                        <td class="zh">模组开关</td>
+                        <td>true</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>announce_hours</td>
+                        <td>报时时段</td>
+                        <td class="en">Which hours to announce (0-23)</td>
+                        <td class="zh">需要报时的时间段(0-23)</td>
+                        <td>[9,12,15,18,21]</td>
+                        <td>[9,12,15,18,21]</td>
+                    </tr>
+                    <tr>
+                        <td>message_format</td>
+                        <td>消息格式</td>
+                        <td class="en">Custom message with {time} placeholder</td>
+                        <td class="zh">自定义消息格式，{time}为占位符</td>
+                        <td class="en">"It's now {time}"</td>
+                        <td class="zh">"现在时间 {time}"</td>
+                    </tr>
+                    <tr>
+                        <td>use_24h_format</td>
+                        <td>24小时制</td>
+                        <td class="en">Use 24-hour time format</td>
+                        <td class="zh">是否使用24小时制</td>
+                        <td>false</td>
+                        <td>false</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 预览图 -->
+        <section class="card">
+            <h2 class="section-title">
+                <i class="fas fa-image"></i>
+                <span class="en">In-Game Preview</span>
+                <span class="zh">游戏内效果</span>
+            </h2>
+            <div style="text-align: center; margin-top: 1rem;">
+                <img src="https://via.placeholder.com/800x400/bbdefb/1976d2?text=Game+Preview" alt="Preview" style="max-width: 100%; border-radius: 4px;">
+                <p style="margin-top: 10px; font-style: italic; color: #666;">
+                    <span class="en">Screenshot showing time announcement in chat</span>
+                    <span class="zh">聊天框显示报时信息的截图示例</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- 下载区域 -->
+        <section class="download-section">
+            <a href="https://modrinth.com/mod/now-time" class="btn">
+                <i class="fas fa-download"></i>
+                <span class="en">Download on Modrinth</span>
+                <span class="zh">Modrinth 平台下载</span>
+            </a>
+            <p style="margin-top: 15px;">
+                <span class="en">Compatible with Forge/Fabric | Minecraft 1.16.5+</span>
+                <span class="zh">支持 Forge/Fabric | Minecraft 1.16.5+</span>
+            </p>
+        </section>
+    </div>
+
+    <script>
+        // 双语切换功能
+        document.getElementById('languageToggle').addEventListener('click', function() {
+            const zhElements = document.querySelectorAll('.zh');
+            const enElements = document.querySelectorAll('.en');
+            
+            zhElements.forEach(el => {
+                el.style.display = el.style.display === 'none' ? 'inline' : 'none';
+            });
+            
+            enElements.forEach(el => {
+                el.style.display = el.style.display === 'none' ? 'inline' : 'block';
+            });
+        });
+
+        // 初始隐藏双语中的一种
+        document.querySelectorAll('.zh').forEach(el => {
+            el.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
